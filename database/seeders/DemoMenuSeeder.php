@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Restaurant;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class DemoMenuSeeder extends Seeder
 {

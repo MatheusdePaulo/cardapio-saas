@@ -22,7 +22,9 @@
     @forelse($category->products as $product)
         <div style="padding: 10px 0; border-bottom: 1px solid #eee;">
             <strong>{{ $product->name }}</strong>
-            <div style="color:#555;">{{ $product->description }}</div>
+            @if($product->description)
+                <div style="color:#555;">{{ $product->description }}</div>
+            @endif
             <div>R$ {{ number_format($product->price_cents / 100, 2, ',', '.') }}</div>
         </div>
     @empty

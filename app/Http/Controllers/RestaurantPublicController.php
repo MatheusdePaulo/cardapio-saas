@@ -23,7 +23,6 @@ class RestaurantPublicController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
 
-        // aqui depois vamos jogar pra tela do cardápio já com mesa selecionada
         return view('public.table', compact('restaurant', 'table'));
     }
 
