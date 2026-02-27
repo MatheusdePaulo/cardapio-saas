@@ -31,9 +31,19 @@ class RestaurantPublicController extends Controller
     {
         abort_unless($restaurant->is_active, 404);
 
-        $orderType = $request->query('type', 'delivery'); // delivery|local
-        $tableNumber = $request->query('mesa'); // opcional
+        $orderType = $request->query('type', 'delivery');
+        $tableNumber = $request->query('mesa');
 
-        return view('public.menu', compact('restaurant', 'orderType', 'tableNumber'));
+        $categories = $restaurant->categories()
+            ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->with(['products' => function ($q) use ($restaurant) {
+                $q->where('is_active', true)
+                    ->where('restaurant_id', $restaurant->id)
+                    ->orderBy('sort_order');
+            }])
+            ->get();
+
+        return view('public.menu', compact('restaurant', 'orderType', 'tableNumber', 'categories'));
     }
 }
