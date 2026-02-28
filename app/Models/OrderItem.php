@@ -19,4 +19,11 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function options()
+    {
+        return $this->belongsToMany(\App\Models\Option::class, 'option_order_item')
+            ->withPivot(['name', 'price_cents'])
+            ->withTimestamps();
+    }
 }

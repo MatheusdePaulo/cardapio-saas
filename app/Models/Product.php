@@ -21,4 +21,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function optionGroups()
+    {
+        return $this->belongsToMany(\App\Models\OptionGroup::class, 'option_group_product')
+            ->withPivot(['min_select', 'max_select', 'sort_order'])
+            ->withTimestamps()
+            ->orderBy('option_group_product.sort_order');
+    }
 }
